@@ -18,10 +18,11 @@ app.add_middleware(
 
 # Service URLs
 SERVICES = {
+    "auth": "http://localhost:8004",
     "square": "http://localhost:8001",
     "critics": "http://localhost:8002",
     "archive": "http://localhost:8003",
-    "movies": "http://localhost:8000",  # 기존 TMDB 서비스
+    "movies": "http://localhost:8000",
 }
 
 @app.get("/")
@@ -98,4 +99,18 @@ async def movies_proxy(path: str, request: Request):
     async with httpx.AsyncClient() as client:
         url = f"{SERVICES['movies']}/api/v1/movies/{path}"
         response = await client.get(url, params=request.query_params)
+        return response.json()
+
+# Auth Service Proxy
+@app.api_route("/api/v1/auth/{path:path}", methods=["GET", "POST"])
+async def auth_proxy(path: str, request: Request):
+    async with httpx.AsyncClient() as client:
+        url = f"{SERVICES['auth']}/api/v1/auth/{path}"
+        
+        if request.method == "GET":
+            response = await client.get(url, params=request.query_params)
+        else:
+            body = await request.json()
+            response = await client.post(url, json=body)
+        
         return response.json()

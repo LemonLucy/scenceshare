@@ -4,6 +4,14 @@
 
 echo "🚀 Starting SceneShare MSA Services..."
 
+# Auth Service (Port 8004)
+cd /home/lucy/Q/movie/backend-services/auth
+python3 -m venv venv 2>/dev/null
+source venv/bin/activate
+pip install -q -r requirements.txt
+uvicorn app.main:app --host 0.0.0.0 --port 8004 --reload > /tmp/auth.log 2>&1 &
+echo "✅ Auth Service started on port 8004"
+
 # Movies Service (Port 8000)
 cd /home/lucy/Q/movie/backend-services/movies
 python3 -m venv venv 2>/dev/null
@@ -50,6 +58,7 @@ echo "🎉 All services started!"
 echo ""
 echo "📍 Service URLs:"
 echo "   - Gateway:  http://localhost:9000"
+echo "   - Auth:     http://localhost:8004"
 echo "   - Movies:   http://localhost:8000"
 echo "   - Square:   http://localhost:8001"
 echo "   - Critics:  http://localhost:8002"

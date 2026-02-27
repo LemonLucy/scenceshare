@@ -1,7 +1,8 @@
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, Depends, HTTPException, Query, Header
 from sqlalchemy.orm import Session
 from sqlalchemy import desc, func
 from typing import List, Optional
+import httpx
 from app.database import get_db
 from app.models import SquarePost, Comment
 from app.schemas import (
@@ -10,6 +11,25 @@ from app.schemas import (
 )
 
 router = APIRouter()
+
+# 인증 체크 함수
+async def verify_auth(authorization: Optional[str] = Header(None)):
+    if not authorization:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    token = authorization.replace("Bearer ", "")
+    
+    # Auth 서비스에 토큰 검증 요청
+    async with httpx.AsyncClient() as client:
+        try:
+            response = await client.get(
+                f"http://localhost:8004/api/v1/auth/me?token={token}"
+            )
+            if response.status_code != 200:
+                raise HTTPException(status_code=401, detail="Invalid token")
+            return response.json()
+        except:
+            raise HTTPException(status_code=401, detail="Authentication failed")
 
 # ===== Posts =====
 
@@ -61,8 +81,12 @@ def create_post(post: PostCreate, db: Session = Depends(get_db)):
     return db_post
 
 @router.get("/posts/{post_id}", response_model=PostWithComments)
-def get_post(post_id: int, db: Session = Depends(get_db)):
-    """게시글 상세 (댓글 포함)"""
+async def get_post(
+    post_id: int,
+    db: Session = Depends(get_db),
+    user = Depends(verify_auth)  # 로그인 필수
+):
+    """게시글 상세 (댓글 포함) - 로그인 필요"""
     post = db.query(SquarePost).filter(SquarePost.id == post_id).first()
     if not post:
         raise HTTPException(status_code=404, detail="Post not found")

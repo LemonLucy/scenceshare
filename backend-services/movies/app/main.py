@@ -62,3 +62,17 @@ async def get_movie(movie_id: int):
             return response.json()
         except:
             return {}
+
+@app.get("/api/v1/movies/{movie_id}/reviews")
+async def get_movie_reviews(movie_id: int, page: int = 1):
+    """영화 리뷰 가져오기 (TMDB)"""
+    async with httpx.AsyncClient() as client:
+        try:
+            response = await client.get(
+                f"{TMDB_BASE_URL}/movie/{movie_id}/reviews",
+                params={"api_key": TMDB_API_KEY, "page": page}
+            )
+            response.raise_for_status()
+            return response.json()
+        except:
+            return {"results": [], "page": 1, "total_pages": 0}
