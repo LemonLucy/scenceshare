@@ -1,0 +1,86 @@
+{
+  "common": {
+    "appName": "SceneShare",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort"
+  },
+  "nav": {
+    "home": "Home",
+    "square": "The Square",
+    "critics": "Critic's View",
+    "archive": "The Archive",
+    "profile": "Profile",
+    "login": "Login",
+    "logout": "Logout"
+  },
+  "square": {
+    "title": "The Square",
+    "subtitle": "Join the global conversation about cinema",
+    "newPost": "New Post",
+    "discussion": "Discussion",
+    "question": "Question",
+    "review": "Review",
+    "sortRecent": "Most Recent",
+    "sortPopular": "Most Popular",
+    "replies": "Replies",
+    "views": "Views",
+    "likes": "Likes"
+  },
+  "critics": {
+    "title": "Critic's View",
+    "subtitle": "Diverse perspectives from experts and creators",
+    "professional": "Professional Critics",
+    "youtuber": "YouTubers",
+    "blogger": "Bloggers",
+    "rating": "Rating",
+    "watchReview": "Watch Review"
+  },
+  "archive": {
+    "title": "The Archive",
+    "subtitle": "Interviews and behind-the-scenes insights",
+    "director": "Director",
+    "actor": "Actor",
+    "producer": "Producer",
+    "filterByRole": "Filter by Role",
+    "filterByMovie": "Filter by Movie",
+    "watchInterview": "Watch Interview"
+  },
+  "movie": {
+    "overview": "Overview",
+    "cast": "Cast",
+    "crew": "Crew",
+    "releaseDate": "Release Date",
+    "runtime": "Runtime",
+    "genres": "Genres",
+    "rating": "Rating",
+    "addToWatchlist": "Add to Watchlist",
+    "discuss": "Discuss",
+    "minutes": "minutes"
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Register",
+    "email": "Email",
+    "password": "Password",
+    "username": "Username",
+    "displayName": "Display Name",
+    "forgotPassword": "Forgot Password?",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?"
+  },
+  "profile": {
+    "myPosts": "My Posts",
+    "watchlist": "Watchlist",
+    "settings": "Settings",
+    "language": "Language",
+    "bio": "Bio",
+    "editProfile": "Edit Profile"
+  }
+}
